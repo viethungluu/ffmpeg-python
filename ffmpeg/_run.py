@@ -287,12 +287,18 @@ def run_async(
     if quiet:
         stderr_stream = subprocess.STDOUT
         stdout_stream = subprocess.DEVNULL
+
+    # hide cmd from displaying
+    si = subprocess.STARTUPINFO()
+    si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
     return subprocess.Popen(
         args,
         stdin=stdin_stream,
         stdout=stdout_stream,
         stderr=stderr_stream,
         cwd=cwd,
+        startupinfo=si
     )
 
 
